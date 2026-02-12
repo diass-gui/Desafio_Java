@@ -1,4 +1,5 @@
 package projetojava.mvc.controller;
 
-public class Controller1 {
+public class produtoController {
+
 }

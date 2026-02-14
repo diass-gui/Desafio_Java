@@ -1,38 +1,21 @@
 package projetojava.mvc.model;
 
-public class ProdutoModel {
+public class Produto {
 
-    private Integer id;
     private String nome;
     private String categoria;
     private Integer quantidade;
 
-    public ProdutoModel() {
+    public Produto() {
         this.nome = "";
+        this.categoria = "";
         this.quantidade = 0;
     }
 
-    public ProdutoModel(Integer id, String nome, String categoria, Integer quantidade) {
-        this.id = id;
+    public Produto(String nome, String categoria, Integer quantidade) {
         this.nome = nome;
         this.categoria = categoria;
         this.quantidade = quantidade;
-    }
-
-//    public void atualizarNome(String nome) {
-//        this.nome = nome;
-//    }
-//
-//    public void atualizarCategoria(String categoria) {
-//        this.categoria = categoria;
-//    }
-//
-//    public void atualizarQuantidade(Integer quantidade) {
-//        this.quantidade += quantidade;
-//    }
-
-    public Integer getId() {
-        return id;
     }
 
     public String getNome() {

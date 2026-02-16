@@ -1,8 +1,6 @@
 package projetojava.mvc.view;
 
-import projetojava.mvc.model.Estoque;
 import projetojava.mvc.model.Produto;
-
 import java.util.List;
 
 public class ProdutoView {

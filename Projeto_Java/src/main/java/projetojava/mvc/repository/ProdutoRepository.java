@@ -13,11 +13,12 @@ public class ProdutoRepository {
 
     public void inserirProduto(Produto produto) {
 
-        String sql = "INSERT INTO Produto VALUES (default, ?, ?, ?)";
+        String sql = "INSERT INTO Produto VALUES (?, ?, ?, ?)";
 
         try(Connection conn = ConnectionBD.getConnection();
             PreparedStatement stmt = conn.prepareStatement(sql)) {
 
+            stmt.setInt(1, produto.getId());
             stmt.setString(2, produto.getNome());
             stmt.setString(3, produto.getCategoria());
             stmt.setInt(4, produto.getQuantidade());
@@ -45,8 +46,8 @@ public class ProdutoRepository {
                     Integer qtd = rs.getInt("quantidade");
 
                     produtos.add(new Produto(id, nome, categoria, qtd));
-                    return produtos;
                 }
+                return produtos;
             }
         } catch(SQLException e) {
             e.printStackTrace();
@@ -82,14 +83,14 @@ public class ProdutoRepository {
         return null;
     }
 
-    public void deletarProduto(String nome) {
+    public void deletarProduto(Integer id) {
 
-        String sql = "DELETE FROM Produto WHERE nome = ?";
+        String sql = "DELETE FROM Produto WHERE id = ?";
 
         try(Connection conn = ConnectionBD.getConnection();
         PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            stmt.setString(1, nome);
+            stmt.setInt(1, id);
 
             stmt.executeQuery();
 
@@ -132,7 +133,7 @@ public class ProdutoRepository {
         }
     }
 
-    public List<Produto> buscarProdutoPorCategoria(String categoria) {
+    public List<Produto> buscarProdutosPorCategoria(String categoria) {
 
         List<Produto> produtos = new ArrayList<>();
 
@@ -152,7 +153,33 @@ public class ProdutoRepository {
                     Integer qtd = rs.getInt("quantidade");
 
                     produtos.add(new Produto(id, nome, cat, qtd));
-                    return produtos;
+                }
+                return produtos;
+            }
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    public Produto buscarPorId(Integer id) {
+
+        String sql = "SELECT * FROM Produto WHERE id = ?";
+
+        try(Connection conn = ConnectionBD.getConnection();
+        PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, id);
+
+            try(ResultSet rs = stmt.executeQuery()) {
+                if(rs.next()) {
+                    Integer idQuery = rs.getInt("id");
+                    String nomeQuery = rs.getString("nome");
+                    String categoriaQuery = rs.getString("categoria");
+                    Integer qtdQuery = rs.getInt("categoria");
+
+                    return new Produto(idQuery, nomeQuery, categoriaQuery, qtdQuery);
                 }
             }
         } catch(SQLException e) {

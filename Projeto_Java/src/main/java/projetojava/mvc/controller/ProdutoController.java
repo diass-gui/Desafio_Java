@@ -100,6 +100,7 @@ public class ProdutoController {
 
             System.out.println("Informe o ID do produto que você deseja alterar:");
             Integer id = scanner.nextInt();
+            scanner.nextLine();
 
             System.out.println("Informe o novo nome que você deseja colocar no produto:");
             String nome = scanner.nextLine();
@@ -116,9 +117,8 @@ public class ProdutoController {
         try {
             System.out.println("Primeiro, informe o ID do produto que você deseja alterar a quantidade:");
             Integer id = scanner.nextInt();
-            scanner.nextLine();
 
-            System.out.println("Informe uma das opções: 1 - Aumentar quantidade \n 2 - Reduzir quantidade:");
+            System.out.println("Informe uma das opções: \n 1 - Aumentar quantidade \n 2 - Reduzir quantidade:");
             Integer opcao = scanner.nextInt();
 
             if(opcao == 1){
@@ -143,7 +143,7 @@ public class ProdutoController {
 
     public void excluirProduto() {
         try {
-            System.out.println("Informe o nome do produto que você deseja excluir:");
+            System.out.println("Informe o ID do produto que você deseja excluir:");
             Integer id = scanner.nextInt();
             scanner.nextLine();
 

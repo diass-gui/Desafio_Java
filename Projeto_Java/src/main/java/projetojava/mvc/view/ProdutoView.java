@@ -34,7 +34,7 @@ public class ProdutoView {
             if (opcao == 1) {
                 produtoController.listarProdutos();
             } else if (opcao == 2) {
-                System.out.println("Escolha uma das opções para pesquisarmos: 1 - Pesquisar por Nome \n 2 - Pesquisar por Categoria \n 3 - Pesquisar por ID:");
+                System.out.println("Escolha uma das opções para pesquisarmos: \n 1 - Pesquisar por Nome \n 2 - Pesquisar por Categoria \n 3 - Pesquisar por ID:");
                 Integer opcaoPesquisada = scanner.nextInt();
                 scanner.nextLine();
 
@@ -50,7 +50,7 @@ public class ProdutoView {
             } else if (opcao == 3) {
                 produtoController.salvarProduto();
             } else if (opcao == 4) {
-                System.out.println("Escolha uma das opções para a gente prosseguir: 1 - Atualizar Nome do Produto \n 2 - Atualizar Quantidade do Produto:");
+                System.out.println("Escolha uma das opções para a gente prosseguir: \n 1 - Atualizar Nome do Produto \n 2 - Atualizar Quantidade do Produto:");
                 Integer opcaoPesquisada = scanner.nextInt();
                 scanner.nextLine();
 
@@ -70,10 +70,5 @@ public class ProdutoView {
             }
         }
     }
-//    public void exibirEstoque(List<Produto> produtos) {
-//        for (Produto produto : produtos) {
-//            System.out.println("Nome do Produto: " + produto.getNome() + "; Quantidade do Produto: " + produto.getQuantidade());
-//        }
-//    }
 
 }

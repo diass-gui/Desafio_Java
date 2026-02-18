@@ -45,7 +45,7 @@ public class ProdutoService {
         produtoRepository.inserirProduto(produto);
     }
 
-    public List<Produto> listarProdutos() throws RuntimeException{
+    public List<Produto> listarProdutos() throws RuntimeException {
         if(produtoRepository.buscarProdutos().isEmpty()) {
             throw new RuntimeException("Não há produtos cadastrados no sistema.");
         }
@@ -81,12 +81,12 @@ public class ProdutoService {
     }
 
     public void atualizarNome(Integer id, String nome) throws RuntimeException {
-        if(nome == null || nome.isBlank()) {
-            String mensagem = "Nome inválido. Favor informar um nome válido.";
-            throw new RuntimeException(mensagem);
-        }
         if(produtoRepository.buscarPorId(id) == null) {
             String mensagem = "Não há como alterar o nome, produto não encontrado. Favor validar se o produto existe.";
+            throw new RuntimeException(mensagem);
+        }
+        if(nome == null || nome.isBlank()) {
+            String mensagem = "Nome inválido. Favor informar um nome válido.";
             throw new RuntimeException(mensagem);
         }
 
@@ -127,11 +127,11 @@ public class ProdutoService {
 
     public void removerProduto(Integer id) throws RuntimeException {
         if(id == null) {
-            String mensagem = "Nome inválido. Favor informar um nome válido.";
+            String mensagem = "ID inválido. Favor informar um ID válido.";
             throw new RuntimeException(mensagem);
         }
         if(produtoRepository.buscarPorId(id) == null) {
-            String mensagem = "Não há produtos cadastrados com esse nome. Favor verificar se o produto existe.";
+            String mensagem = "Não há produtos cadastrados com essa identificação. Favor verificar se o produto existe.";
             throw new RuntimeException(mensagem);
         }
 

@@ -92,7 +92,7 @@ public class ProdutoRepository {
 
             stmt.setInt(1, id);
 
-            stmt.executeQuery();
+            stmt.executeUpdate();
 
         } catch(SQLException e) {
             e.printStackTrace();
@@ -109,7 +109,7 @@ public class ProdutoRepository {
             stmt.setString(1, nome);
             stmt.setInt(2, id);
 
-            stmt.executeQuery();
+            stmt.executeUpdate();
 
         } catch(SQLException e) {
             e.printStackTrace();
@@ -126,7 +126,7 @@ public class ProdutoRepository {
             stmt.setInt(1, qtd);
             stmt.setInt(2, id);
 
-            stmt.executeQuery();
+            stmt.executeUpdate();
 
         } catch(SQLException e) {
             e.printStackTrace();
@@ -177,7 +177,7 @@ public class ProdutoRepository {
                     Integer idQuery = rs.getInt("id");
                     String nomeQuery = rs.getString("nome");
                     String categoriaQuery = rs.getString("categoria");
-                    Integer qtdQuery = rs.getInt("categoria");
+                    Integer qtdQuery = rs.getInt("quantidade");
 
                     return new Produto(idQuery, nomeQuery, categoriaQuery, qtdQuery);
                 }

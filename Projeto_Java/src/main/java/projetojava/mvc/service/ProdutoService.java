@@ -49,9 +49,6 @@ public class ProdutoService {
         if(listaProdutos.isEmpty()) {
             throw new RuntimeException("Não há produtos cadastrados no sistema.");
         }
-//        if(produtoRepository.buscarProdutos().isEmpty()) {
-//            throw new RuntimeException("Não há produtos cadastrados no sistema.");
-//        }
 
         return listaProdutos;
     }
@@ -63,11 +60,6 @@ public class ProdutoService {
             String mensagem = "Não há nenhum produto cadastrado com este nome.";
             throw new RuntimeException(mensagem);
         }
-
-//        if(produtoRepository.buscarProdutoPorNome(nome) == null) {
-//            String mensagem = "Não há nenhum produto cadastrado com este nome.";
-//            throw new RuntimeException(mensagem);
-//        }
 
         return produtoPesquisado;
     }

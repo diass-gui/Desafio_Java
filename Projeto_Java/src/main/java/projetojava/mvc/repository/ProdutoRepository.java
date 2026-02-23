@@ -53,7 +53,7 @@ public class ProdutoRepository {
             e.printStackTrace();
         }
 
-        return null;
+        return produtos;
     }
 
     public Produto buscarProdutoPorNome(String nome) {
@@ -160,7 +160,7 @@ public class ProdutoRepository {
             e.printStackTrace();
         }
 
-        return null;
+        return produtos;
     }
 
     public Produto buscarPorId(Integer id) {

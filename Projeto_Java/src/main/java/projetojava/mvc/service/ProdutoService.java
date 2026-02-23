@@ -13,11 +13,13 @@ public class ProdutoService {
     }
 
     public void adicionarProduto(Produto produto) throws RuntimeException {
+        Produto produtoID = produtoRepository.buscarPorId(produto.getId());
+
         if(produto.getId() == null || produto.getId() < 0) {
             String mensagem = "Erro: Identificação do produto inválida. Considere inserir uma identificação válida.";
             throw new RuntimeException(mensagem);
         }
-        if(produtoRepository.buscarPorId(produto.getId()) != null) {
+        if(produtoID != null) {
             String mensagem = "Erro: Essa identificação já está atrelada a outro produto no sistema. Considere colocar outra identificação no seu produto.";
             throw new RuntimeException(mensagem);
         }
@@ -27,10 +29,6 @@ public class ProdutoService {
         }
         if(produto.getNome().length() < 4) {
             String mensagem = "Erro: Nome declarado de forma inválida, minímo 4 letras.";
-            throw new RuntimeException(mensagem);
-        }
-        if(produtoRepository.buscarProdutoPorNome(produto.getNome()) != null) {
-            String mensagem = "Erro: Já existe um produto com o mesmo nome no sistema. Por favor, considere colocar outro nome.";
             throw new RuntimeException(mensagem);
         }
         if(produto.getCategoria() == null || produto.getCategoria().isBlank()) {
@@ -46,47 +44,69 @@ public class ProdutoService {
     }
 
     public List<Produto> listarProdutos() throws RuntimeException {
-        if(produtoRepository.buscarProdutos().isEmpty()) {
+        List<Produto> listaProdutos = produtoRepository.buscarProdutos();
+
+        if(listaProdutos.isEmpty()) {
             throw new RuntimeException("Não há produtos cadastrados no sistema.");
         }
+//        if(produtoRepository.buscarProdutos().isEmpty()) {
+//            throw new RuntimeException("Não há produtos cadastrados no sistema.");
+//        }
 
-        return produtoRepository.buscarProdutos();
+        return listaProdutos;
     }
 
     public Produto pesquisarProdutoPorNome(String nome) {
-        if(produtoRepository.buscarProdutoPorNome(nome) == null) {
+        Produto produtoPesquisado = produtoRepository.buscarProdutoPorNome(nome);
+
+        if(produtoPesquisado == null) {
             String mensagem = "Não há nenhum produto cadastrado com este nome.";
             throw new RuntimeException(mensagem);
         }
 
-        return produtoRepository.buscarProdutoPorNome(nome);
+//        if(produtoRepository.buscarProdutoPorNome(nome) == null) {
+//            String mensagem = "Não há nenhum produto cadastrado com este nome.";
+//            throw new RuntimeException(mensagem);
+//        }
+
+        return produtoPesquisado;
     }
 
     public List<Produto> listarProdutosPorCategoria(String categoria) throws RuntimeException {
-        if(produtoRepository.buscarProdutosPorCategoria(categoria) == null) {
+        List<Produto> listaProdutosPorCategoria = produtoRepository.buscarProdutosPorCategoria(categoria);
+
+        if(listaProdutosPorCategoria.isEmpty()) {
             String mensagem = "Não há produtos cadastrados com essa categoria.";
             throw new RuntimeException(mensagem);
         }
 
-        return produtoRepository.buscarProdutosPorCategoria(categoria);
+        return listaProdutosPorCategoria;
     }
 
     public Produto pesquisarProdutoPorId(Integer id) throws RuntimeException {
-        if(produtoRepository.buscarPorId(id) == null) {
+        Produto produtoPesquisado = produtoRepository.buscarPorId(id);
+
+        if(produtoPesquisado.getId() == null) {
             String mensagem = "Não há produtos cadastrados com essa identificação.";
             throw new RuntimeException(mensagem);
         }
 
-        return produtoRepository.buscarPorId(id);
+        return produtoPesquisado;
     }
 
     public void atualizarNome(Integer id, String nome) throws RuntimeException {
-        if(produtoRepository.buscarPorId(id) == null) {
-            String mensagem = "Não há como alterar o nome, produto não encontrado. Favor validar se o produto existe.";
+        Produto produtoPesquisado = produtoRepository.buscarPorId(id);
+
+        if(id == null) {
+            String mensagem = "Nome inválido. Favor informar um nome válido.";
             throw new RuntimeException(mensagem);
         }
         if(nome == null || nome.isBlank()) {
             String mensagem = "Nome inválido. Favor informar um nome válido.";
+            throw new RuntimeException(mensagem);
+        }
+        if(produtoPesquisado == null) {
+            String mensagem = "Não há como alterar o nome, produto não encontrado. Favor validar se o produto existe.";
             throw new RuntimeException(mensagem);
         }
 
@@ -94,7 +114,9 @@ public class ProdutoService {
     }
 
     public void aumentarQuantidade(Integer id, Integer qtd) throws RuntimeException {
-        if(produtoRepository.buscarPorId(id) == null) {
+        Produto produtoPesquisado = produtoRepository.buscarPorId(id);
+
+        if(produtoPesquisado == null) {
             String mensagem = "Não há como alterar a quantidade, produto não encontrado. Favor validar se o produto existe.";
             throw new RuntimeException(mensagem);
         }
@@ -103,12 +125,14 @@ public class ProdutoService {
             throw new RuntimeException(mensagem);
         }
 
-        Integer qtdAtual = produtoRepository.buscarPorId(id).getQuantidade();
+        Integer qtdAtual = produtoPesquisado.getQuantidade();
         produtoRepository.atualizarQuantidade(id, (qtdAtual + qtd));
     }
 
     public void reduzirQuantidade(Integer id, Integer qtd) throws RuntimeException {
-        if(produtoRepository.buscarPorId(id) == null) {
+        Produto produtoPesquisado = produtoRepository.buscarPorId(id);
+
+        if(produtoPesquisado == null) {
             String mensagem = "Não há como alterar a quantidade, produto não encontrado. Favor validar se o produto existe.";
             throw new RuntimeException(mensagem);
         }
@@ -116,21 +140,23 @@ public class ProdutoService {
             String mensagem = "Quantidade inválida. Favor informar um valor válido.";
             throw new RuntimeException(mensagem);
         }
-        if(produtoRepository.buscarPorId(id).getQuantidade() < qtd) {
+        if(produtoPesquisado.getQuantidade() < qtd) {
             String mensagem = "Quantidade para retirada maior que o estoque disponível. Neste caso, considere remover o produto.";
             throw new RuntimeException(mensagem);
         }
 
-        Integer qtdAtual = produtoRepository.buscarPorId(id).getQuantidade();
+        Integer qtdAtual = produtoPesquisado.getQuantidade();
         produtoRepository.atualizarQuantidade(id, (qtdAtual - qtd));
     }
 
     public void removerProduto(Integer id) throws RuntimeException {
+        Produto produto = produtoRepository.buscarPorId(id);
+
         if(id == null) {
             String mensagem = "ID inválido. Favor informar um ID válido.";
             throw new RuntimeException(mensagem);
         }
-        if(produtoRepository.buscarPorId(id) == null) {
+        if(produto == null) {
             String mensagem = "Não há produtos cadastrados com essa identificação. Favor verificar se o produto existe.";
             throw new RuntimeException(mensagem);
         }

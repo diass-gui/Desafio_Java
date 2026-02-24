@@ -5,4 +5,3 @@ public class ProdutoNaoEncontradoException extends RuntimeException {
         super(message);
     }
 }
-

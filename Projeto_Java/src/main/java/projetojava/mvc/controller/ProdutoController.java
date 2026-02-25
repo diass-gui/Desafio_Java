@@ -13,42 +13,42 @@ public class ProdutoController {
     }
 
     public void salvarProduto(Produto produto) {
-            produtoService.adicionarProduto(produto);
+        produtoService.adicionarProduto(produto);
     }
 
     public List<Produto> listarProdutos() {
-            List<Produto> produtos = produtoService.listarProdutos();
-            return produtos;
+        List<Produto> produtos = produtoService.listarProdutos();
+        return produtos;
     }
 
     public List<Produto> pesquisarProdutosPorCategoria(String categoria) {
-            List<Produto> produtos = produtoService.listarProdutosPorCategoria(categoria);
-            return produtos;
+        List<Produto> produtos = produtoService.listarProdutosPorCategoria(categoria);
+        return produtos;
     }
 
     public Produto pesquisarProdutoPorNome(String nome) {
-            Produto produto = produtoService.pesquisarProdutoPorNome(nome);
-            return produto;
+        Produto produto = produtoService.pesquisarProdutoPorNome(nome);
+        return produto;
     }
 
     public Produto pesquisarProdutoPorId(Integer id) {
-            Produto produto = produtoService.pesquisarProdutoPorId(id);
-            return produto;
+        Produto produto = produtoService.pesquisarProdutoPorId(id);
+        return produto;
     }
 
     public void atualizarNomeProduto(Integer id, String nome) {
-            produtoService.atualizarNome(id, nome);
+        produtoService.atualizarNome(id, nome);
     }
 
     public void atualizarQuantidadeProduto(Integer opcao, Integer id, Integer quantidade) {
-            if(opcao == 1){
-                produtoService.aumentarQuantidade(id, quantidade);
-            } else if(opcao == 2) {
-                produtoService.reduzirQuantidade(id, quantidade);
-            }
+        if(opcao == 1){
+            produtoService.aumentarQuantidade(id, quantidade);
+        } else if(opcao == 2) {
+            produtoService.reduzirQuantidade(id, quantidade);
+        }
     }
 
     public void excluirProduto(Integer id) {
-            produtoService.removerProduto(id);
+        produtoService.removerProduto(id);
     }
 }

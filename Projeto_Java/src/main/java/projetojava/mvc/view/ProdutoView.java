@@ -3,6 +3,7 @@ package projetojava.mvc.view;
 import projetojava.mvc.Exception.ValidacaoException;
 import projetojava.mvc.controller.ProdutoController;
 import projetojava.mvc.model.Produto;
+
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
@@ -21,7 +22,7 @@ public class ProdutoView {
         Integer opcao = 0;
 
         while (opcao != 6) {
-                System.out.println("Escolha uma das opções para prosseguirmos: \n" +
+            System.out.println("Escolha uma das opções para prosseguirmos: \n" +
                         "1 - Exibir Produtos \n" +
                         "2 - Pesquisar Produtos \n" +
                         "3 - Adicionar Produto \n" +
@@ -29,31 +30,26 @@ public class ProdutoView {
                         "5 - Remover Produto \n" +
                         "6 - Sair");
 
-                try {
-                    opcao = scanner.nextInt();
-                    scanner.nextLine();
+            opcao = scanner.nextInt();
+            scanner.nextLine();
 
-                    if (opcao == 1) {
-                        exibirProdutos();
-                    } else if (opcao == 2) {
-                        exibirMenuPesquisa();
-                    } else if (opcao == 3) {
-                        adicionarProduto();
-                    } else if (opcao == 4) {
-                        exibirMenuAtualizacao();
-                    } else if (opcao == 5) {
-                        opcaoExcluirProduto();
-                    } else if (opcao == 6) {
-                        System.out.println("Encerrando a aplicação...");
-                    } else {
-                        System.out.println("Opção inválida.");
+                if (opcao == 1) {
+                    exibirProdutos();
+                } else if (opcao == 2) {
+                    exibirMenuPesquisa();
+                } else if (opcao == 3) {
+                    adicionarProduto();
+                } else if (opcao == 4) {
+                    exibirMenuAtualizacao();
+                } else if (opcao == 5) {
+                    opcaoExcluirProduto();
+                } else if (opcao == 6) {
+                    System.out.println("Encerrando a aplicação...");
+                } else {
+                    System.out.println("Opção inválida. Favor digitar uma opção válida.");
                 }
-            } catch(InputMismatchException e) {
-                System.out.println("Erro: Entrada inválida. Por favor, digite um número inteiro.");
-                scanner.next();
             }
         }
-    }
 
     public void exibirProdutos() {
         List<Produto> produtos = produtoController.listarProdutos();

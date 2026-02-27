@@ -8,8 +8,9 @@ public class Main {
 
        ProdutoView produtoView = new ProdutoView();
 
+       produtoView.estabelecerConexaoBD();
+
        produtoView.exibirMenu();
 
     }
-
 }

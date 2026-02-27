@@ -1,9 +1,11 @@
 package projetojava.mvc.view;
 
+import projetojava.mvc.Exception.FalhaConexaoException;
 import projetojava.mvc.Exception.ValidacaoException;
+import projetojava.mvc.configBD.ConnectionBD;
 import projetojava.mvc.controller.ProdutoController;
 import projetojava.mvc.model.Produto;
-
+import java.sql.SQLException;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
@@ -177,4 +179,13 @@ public class ProdutoView {
             System.out.println("Erro: " + e.getMessage());
         }
     }
+
+    public void estabelecerConexaoBD() {
+        try {
+            ConnectionBD.getConnection();
+        } catch(SQLException e) {
+            throw new FalhaConexaoException("Falha ao estabelecer conexão com o banco de dados." + e.getMessage());
+        }
+    }
+
 }
